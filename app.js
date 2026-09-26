@@ -1,10 +1,10 @@
 const listings = [
-  {city:'Dublin', title:'Rathmines private garage', area:'Rathmines', price:85, deposit:170, size:'18 m²', access:'24/7 access', rating:'4.9', photo:'photo-dublin', tag:'Popular', lat:53.3206, lng:-6.2655},
-  {city:'Cork', title:'Douglas dry basement', area:'Douglas', price:62, deposit:124, size:'10 m²', access:'Keypad access', rating:'4.8', photo:'image-two', tag:'Best value', lat:51.8737, lng:-8.4358},
-  {city:'Galway', title:'Salthill storage room', area:'Salthill', price:95, deposit:190, size:'14 m²', access:'Daytime access', rating:'5.0', photo:'photo-galway', tag:'New space', lat:53.2601, lng:-9.0966},
-  {city:'Limerick', title:'Castletroy secure shed', area:'Castletroy', price:72, deposit:144, size:'12 m²', access:'24/7 access', rating:'4.7', photo:'photo-limerick', tag:'Flexible', lat:52.6734, lng:-8.5673},
-  {city:'Waterford', title:'City centre storage shed', area:'City centre', price:78, deposit:156, size:'9 m²', access:'Daytime access', rating:'4.9', photo:'photo-waterford', tag:'Central', lat:52.2593, lng:-7.1101},
-  {city:'Kilkenny', title:'Kilkenny garage bay', area:'City centre', price:68, deposit:136, size:'15 m²', access:'24/7 access', rating:'4.8', photo:'photo-kilkenny', tag:'Easy access', lat:52.6541, lng:-7.2448},
+  {city:'Dublin', title:'Rathmines private garage', area:'Rathmines', price:0.55, deposit:1.10, size:'18 m²', access:'24/7 access', rating:'4.9', photo:'photo-dublin', tag:'Popular', lat:53.3206, lng:-6.2655},
+  {city:'Cork', title:'Douglas dry basement', area:'Douglas', price:0.40, deposit:0.80, size:'10 m²', access:'Keypad access', rating:'4.8', photo:'image-two', tag:'Best value', lat:51.8737, lng:-8.4358},
+  {city:'Galway', title:'Salthill storage room', area:'Salthill', price:0.62, deposit:1.24, size:'14 m²', access:'Daytime access', rating:'5.0', photo:'photo-galway', tag:'New space', lat:53.2601, lng:-9.0966},
+  {city:'Limerick', title:'Castletroy secure shed', area:'Castletroy', price:0.47, deposit:0.94, size:'12 m²', access:'24/7 access', rating:'4.7', photo:'photo-limerick', tag:'Flexible', lat:52.6734, lng:-8.5673},
+  {city:'Waterford', title:'City centre storage shed', area:'City centre', price:0.50, deposit:1.00, size:'9 m²', access:'Daytime access', rating:'4.9', photo:'photo-waterford', tag:'Central', lat:52.2593, lng:-7.1101},
+  {city:'Kilkenny', title:'Kilkenny garage bay', area:'City centre', price:0.44, deposit:0.88, size:'15 m²', access:'24/7 access', rating:'4.8', photo:'photo-kilkenny', tag:'Easy access', lat:52.6541, lng:-7.2448},
 ];
 const grid = document.querySelector('#listing-grid');
 const modalBackdrop = document.querySelector('#modal-backdrop');
@@ -35,7 +35,7 @@ function visibleListings() {
     (activeFilter === 'All spaces' ||
       (activeFilter === 'Indoor' && !item.title.includes('shed')) ||
       (activeFilter === '24/7 access' && item.access === '24/7 access') ||
-      (activeFilter === 'Under €100' && item.price < 100))
+      (activeFilter === 'Under 0.5 SOL' && item.price < 0.5))
   );
 }
 function renderListings() {
@@ -44,7 +44,7 @@ function renderListings() {
     const index = listings.indexOf(item);
     return `<article class="listing-card" data-listing-index="${index}" tabindex="0" role="button" aria-label="View ${item.title}">
       <div class="listing-image ${item.photo}"><span class="image-tag">${item.tag}</span></div>
-      <div class="listing-body"><p>${item.size} · ${item.access}</p><h3>${item.title}</h3><div class="listing-meta"><span>${item.area}, ${item.city}</span><span class="listing-rating">★ ${item.rating}</span></div><div class="listing-bottom"><span class="listing-price">€${item.price}<small>/ month</small></span><span class="verified">Demo listing</span></div></div>
+      <div class="listing-body"><p>${item.size} · ${item.access}</p><h3>${item.title}</h3><div class="listing-meta"><span>${item.area}, ${item.city}</span><span class="listing-rating">★ ${item.rating}</span></div><div class="listing-bottom"><span class="listing-price">◎ ${item.price.toFixed(2)} SOL<small>/ month</small></span><span class="verified">Demo listing</span></div></div>
     </article>`;
   }).join('') : '<div class="empty-results">No demo spaces match these filters. Try another city or clear your search.</div>';
   grid.querySelectorAll('.listing-card').forEach(card => {
@@ -89,8 +89,8 @@ function initMap() {
   map.fitBounds([[51.2,-10.8],[55.5,-5.4]], {padding:[18,18]});
   listings.forEach(item => {
     const icon = L.divIcon({className:'storage-marker', html:'<span>⌂</span>', iconSize:[36,36], iconAnchor:[18,18]});
-    const marker = L.marker([item.lat,item.lng], {icon, title:`${item.city}: ${item.title}, €${item.price} per month`}).addTo(map);
-    marker.bindTooltip(`${item.city} · €${item.price}/mo`, {direction:'top', offset:[0,-15]});
+    const marker = L.marker([item.lat,item.lng], {icon, title:`${item.city}: ${item.title}, ${item.price.toFixed(2)} SOL per month`}).addTo(map);
+    marker.bindTooltip(`${item.city} · ${item.price.toFixed(2)} SOL/mo`, {direction:'top', offset:[0,-15]});
     marker.on('click', () => selectCity(item.city, false));
     marker.getElement().addEventListener('click', () => selectCity(item.city, false));
     marker.getElement().addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); selectCity(item.city, false); } });
@@ -143,11 +143,11 @@ function openBooking(index = 0) {
   const date = new Date();
   date.setDate(date.getDate() + 1);
   const moveIn = date.toISOString().slice(0,10);
-  openModal(`<div class="modal-space-preview ${item.photo}"></div><div class="eyebrow">DEMO STORAGE SPACE</div><h2>${item.title}</h2><p>${item.area}, ${item.city} · ${item.size} · ${item.access}</p><div class="modal-form"><label>MOVE-IN DATE</label><input type="date" value="${moveIn}" /><label>PAYMENT SUMMARY</label><div class="agreement-summary"><strong>€${item.price}.00 / month</strong><span>+ €${item.deposit}.00 example security deposit</span></div><button class="modal-submit" data-start-booking>Continue with USDC <span>→</span></button></div>`);
+  openModal(`<div class="modal-space-preview ${item.photo}"></div><div class="eyebrow">DEMO STORAGE SPACE</div><h2>${item.title}</h2><p>${item.area}, ${item.city} · ${item.size} · ${item.access}</p><div class="modal-form"><label>MOVE-IN DATE</label><input type="date" value="${moveIn}" /><label>PAYMENT SUMMARY</label><div class="agreement-summary"><strong>◎ ${item.price.toFixed(2)} SOL / month</strong><span>+ ◎ ${item.deposit.toFixed(2)} SOL example security deposit</span></div><button class="modal-submit" data-start-booking>Continue with SOL <span>→</span></button></div>`);
   document.querySelector('[data-start-booking]').addEventListener('click', () => openEscrow(item));
 }
 function openEscrow(item) {
-  openModal(`<div class="escrow-modal"><div class="eyebrow">SOLANA ESCROW · DEMO</div><h2>See how your deposit is protected.</h2><p>This is a simulated escrow flow for ${item.title}. No payment or on-chain transaction will be made.</p><div class="escrow-visual"><div class="escrow-amount">€${item.deposit}.00 <small>USDC equivalent</small></div><div class="escrow-track"><span class="escrow-node">✓</span><span class="escrow-connector"></span><span class="escrow-node pending">⌑</span><span class="escrow-connector pending"></span><span class="escrow-node pending">✓</span></div><div class="escrow-labels"><span>Payment received</span><span>Access confirmed</span><span>Deposit returned</span></div></div><button class="modal-submit" data-lock-funds>Show simulated deposit <span>→</span></button></div>`);
+  openModal(`<div class="escrow-modal"><div class="eyebrow">SOLANA ESCROW · DEMO</div><h2>See how your deposit is protected.</h2><p>This is a simulated escrow flow for ${item.title}. No payment or on-chain transaction will be made.</p><div class="escrow-visual"><div class="escrow-amount">◎ ${item.deposit.toFixed(2)} SOL <small>Solana</small></div><div class="escrow-track"><span class="escrow-node">✓</span><span class="escrow-connector"></span><span class="escrow-node pending">⌑</span><span class="escrow-connector pending"></span><span class="escrow-node pending">✓</span></div><div class="escrow-labels"><span>Payment received</span><span>Access confirmed</span><span>Deposit returned</span></div></div><button class="modal-submit" data-lock-funds>Show simulated deposit <span>→</span></button></div>`);
   document.querySelector('[data-lock-funds]').addEventListener('click', () => {
     closeModal();
     showToast('Demo escrow state updated');
@@ -155,7 +155,7 @@ function openEscrow(item) {
   });
 }
 function openListingForm() {
-  openModal(`<div class="eyebrow">BECOME A HOST · DEMO</div><h2>List your unused space.</h2><p>Preview how a host could turn an empty garage, room, or locker into monthly income.</p><div class="modal-form"><label>SPACE NAME</label><input placeholder="e.g. Dry garage near Dublin city centre" /><label>MONTHLY PRICE</label><input placeholder="€85" /><label>SPACE TYPE</label><select><option>Private garage</option><option>Basement</option><option>Spare room</option><option>Warehouse</option></select><button class="modal-submit" data-submit-listing>Preview listing <span>→</span></button></div>`);
+  openModal(`<div class="eyebrow">BECOME A HOST · DEMO</div><h2>List your unused space.</h2><p>Preview how a host could turn an empty garage, room, or locker into monthly income.</p><div class="modal-form"><label>SPACE NAME</label><input placeholder="e.g. Dry garage near Dublin city centre" /><label>MONTHLY PRICE (SOL)</label><input placeholder="0.55" /><label>SPACE TYPE</label><select><option>Private garage</option><option>Basement</option><option>Spare room</option><option>Warehouse</option></select><button class="modal-submit" data-submit-listing>Preview listing <span>→</span></button></div>`);
   document.querySelector('[data-submit-listing]').addEventListener('click', () => { closeModal(); showToast('Demo listing preview complete'); });
 }
 renderListings();
