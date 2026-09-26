@@ -26,9 +26,10 @@ class Listing(db.Model):
     description = db.Column(db.String(500), nullable=False)
     location = db.Column(db.String(100), nullable=False)
 
-    # Human-readable SOL amounts
-    price_sol = db.Column(db.Float, nullable=False)
-    deposit_sol = db.Column(db.Float, nullable=False)
+    # Listings are priced in USDC.
+    # Users may still pay in SOL through the frontend/Anchor conversion layer.
+    price_usdc = db.Column(db.Float, nullable=False)
+    deposit_usdc = db.Column(db.Float, nullable=False)
 
     image = db.Column(db.String(500))
     space_type = db.Column(db.String(20), nullable=False)
@@ -42,8 +43,8 @@ class Listing(db.Model):
             "title": self.title,
             "description": self.description,
             "location": self.location,
-            "price_sol": self.price_sol,
-            "deposit_sol": self.deposit_sol,
+            "price_usdc": self.price_usdc,
+            "deposit_usdc": self.deposit_usdc,
             "image": self.image,
             "space_type": self.space_type,
             "host_wallet": self.host_wallet
@@ -132,8 +133,8 @@ def create_listing():
         title=data["title"],
         description=data["description"],
         location=data["location"],
-        price_sol=data["price_sol"],
-        deposit_sol=data["deposit_sol"],
+        price_usdc=data["price_usdc"],
+        deposit_usdc=data["deposit_usdc"],
         image=data.get("image"),
         space_type=data["space_type"],
         host_wallet=data["host_wallet"]
@@ -153,6 +154,7 @@ def create_listing():
 def create_booking():
     data = request.get_json()
 
+    # Make sure the listing exists
     listing = db.session.get(Listing, data["listing_id"])
 
     if listing is None:
@@ -184,7 +186,7 @@ def get_booking(booking_id):
 
 
 # -------------------------
-# SOLANA FUNDING
+# ESCROW FUNDED
 # -------------------------
 
 @app.route("/api/bookings/<int:booking_id>/funded", methods=["PATCH"])
@@ -208,7 +210,7 @@ def fund_booking(booking_id):
 
 
 # -------------------------
-# EVIDENCE
+# HANDOVER EVIDENCE
 # -------------------------
 
 @app.route("/api/bookings/<int:booking_id>/evidence", methods=["PATCH"])
@@ -260,8 +262,8 @@ def confirm_booking(booking_id):
             "error": "Party must be 'renter' or 'host'"
         }), 400
 
-    # Funds should only become releasable
-    # after both parties confirm
+    # Both parties must confirm before the frontend
+    # calls the Solana release instruction.
     if booking.renter_confirmed and booking.host_confirmed:
         booking.status = "READY_TO_RELEASE"
 
@@ -271,7 +273,7 @@ def confirm_booking(booking_id):
 
 
 # -------------------------
-# SOLANA RELEASE
+# ESCROW RELEASED
 # -------------------------
 
 @app.route("/api/bookings/<int:booking_id>/released", methods=["PATCH"])
@@ -292,8 +294,8 @@ def release_booking(booking_id):
             "error": "release_signature is required"
         }), 400
 
-    # The actual SOL release happens on Solana.
-    # Flask only records that it succeeded.
+    # The actual USDC release / SOL conversion happens on Solana.
+    # Flask only records that the blockchain transaction succeeded.
     booking.status = "COMPLETED"
 
     db.session.commit()
