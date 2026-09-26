@@ -152,7 +152,7 @@ function openEscrow(item) {
   document.querySelector('[data-lock-funds]').addEventListener('click', () => {
     closeModal();
     showToast('Demo escrow state updated');
-    document.querySelector('#dashboard').scrollIntoView({behavior:'smooth'});
+    window.location.href = 'dashboard.html';
   });
 }
 function openListingForm() {
@@ -251,10 +251,8 @@ document.querySelector('[data-close-modal]').addEventListener('click', closeModa
 document.addEventListener('keydown', event => { if (event.key === 'Escape') closeModal(); });
 document.querySelectorAll('[data-open-listing]').forEach(button => button.addEventListener('click', openListingForm));
 document.querySelector('[data-connect-wallet]').addEventListener('click', startWalletFlow);
-document.querySelector('[data-open-dashboard]').addEventListener('click', event => { event.preventDefault(); document.querySelector('#dashboard').scrollIntoView({behavior:'smooth'}); });
 document.querySelector('[data-scroll-explore]').addEventListener('click', () => document.querySelector('#explore').scrollIntoView({behavior:'smooth'}));
 document.querySelector('[data-load-more]').addEventListener('click', showAllSpaces);
-document.querySelector('[data-show-escrow]').addEventListener('click', () => window.SpaceLock?.hasBooking() ? window.SpaceLock.openBooking() : openEscrow(listings[0]));
 searchInput.addEventListener('input', () => {
   selectedCity = null;
   cityPanel.innerHTML = '<span class="selected-city-dot"></span><div><strong>All Ireland</strong><small>Search across 6 demo spaces</small></div><button id="show-all-spaces" type="button">Show all →</button>';
@@ -265,4 +263,5 @@ document.querySelectorAll('.filter-button').forEach(button => button.addEventLis
   document.querySelectorAll('.filter-button').forEach(item => item.classList.toggle('active', item === button));
   renderListings();
 }));
+
 
