@@ -128,6 +128,47 @@
 .modal-backdrop { z-index: 10000; }
 .toast { z-index: 10001; }
 
+/* Solana brand assets */
+.solana-inline-mark,
+.solana-price-mark {
+  display: inline-block;
+  vertical-align: middle;
+  background-image: url('assets/branding/solana-mark.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50px auto;
+}
+.solana-inline-mark {
+  width: 18px;
+  height: 18px;
+}
+.solana-price-mark {
+  width: 17px;
+  height: 17px;
+  margin-right: 5px;
+  vertical-align: -3px;
+}
+.listing-price .solana-price-mark {
+  width: 14px;
+  height: 14px;
+  margin-right: 4px;
+  vertical-align: -2px;
+}
+.solana-footer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.solana-wordmark {
+  width: 92px;
+  height: 34px;
+  object-fit: contain;
+  padding: 4px 7px;
+  border: 1px solid #e3e7ea;
+  border-radius: 7px;
+  background: #fff;
+}
+
 /* Prominent host CTA */
 .text-button {
   display: inline-flex;
