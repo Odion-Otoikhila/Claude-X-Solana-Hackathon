@@ -2,7 +2,7 @@ import * as anchor from "@coral-xyz/anchor";
 import { BN, Program } from "@coral-xyz/anchor";
 import { Keypair, LAMPORTS_PER_SOL, PublicKey, SystemProgram } from "@solana/web3.js";
 import { assert } from "chai";
-import IDL from "../target/idl/spacelock_escrow.json";
+import IDL from "../target/idl/spacelock_escrow.json" with { type: "json" };
 
 const PROGRAM_ID = new PublicKey(IDL.address);
 

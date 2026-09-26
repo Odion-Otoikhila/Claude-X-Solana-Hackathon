@@ -417,7 +417,7 @@ function renderDashboard() {
 }
 
 function openListingForm() {
-  openModal(`<div class="eyebrow">BECOME A HOST</div><h2>List your unused space.</h2>
+  openModal(`<div class="eyebrow">BECOME A HOST</div><h2>List your unused space.</h2><p>This writes directly to the Flask API.</p>
     <div class="modal-form">
       <label>SPACE NAME</label><input data-list-title placeholder="e.g. Dry garage near Dublin city centre" />
       <label>DESCRIPTION</label><input data-list-description placeholder="Secure, dry, 24/7 access" />
@@ -521,4 +521,3 @@ document.querySelectorAll('.filter-button').forEach(button => button.addEventLis
 }));
 
 boot();
-
