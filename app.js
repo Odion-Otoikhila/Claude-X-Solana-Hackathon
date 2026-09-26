@@ -1,6 +1,6 @@
 const listings = [
   {city:'Dublin', title:'Rathmines private garage', area:'Rathmines', price:0.55, deposit:1.10, size:'18 m²', access:'24/7 access', rating:'4.9', photo:'photo-dublin', tag:'Popular', lat:53.3206, lng:-6.2655},
-  {city:'Cork', title:'Douglas dry basement', area:'Douglas', price:0.40, deposit:0.80, size:'10 m²', access:'Keypad access', rating:'4.8', photo:'image-two', tag:'Best value', lat:51.8737, lng:-8.4358},
+  {city:'Cork', title:'Douglas dry basement', area:'Douglas', price:0.40, deposit:0.80, size:'10 m²', access:'Keypad access', rating:'4.8', photo:'photo-cork', tag:'Best value', lat:51.8737, lng:-8.4358},
   {city:'Galway', title:'Salthill storage room', area:'Salthill', price:0.62, deposit:1.24, size:'14 m²', access:'Daytime access', rating:'5.0', photo:'photo-galway', tag:'New space', lat:53.2601, lng:-9.0966},
   {city:'Limerick', title:'Castletroy secure shed', area:'Castletroy', price:0.47, deposit:0.94, size:'12 m²', access:'24/7 access', rating:'4.7', photo:'photo-limerick', tag:'Flexible', lat:52.6734, lng:-8.5673},
   {city:'Waterford', title:'City centre storage shed', area:'City centre', price:0.50, deposit:1.00, size:'9 m²', access:'Daytime access', rating:'4.9', photo:'photo-waterford', tag:'Central', lat:52.2593, lng:-7.1101},
@@ -182,3 +182,4 @@ document.querySelectorAll('.filter-button').forEach(button => button.addEventLis
   document.querySelectorAll('.filter-button').forEach(item => item.classList.toggle('active', item === button));
   renderListings();
 }));
+
