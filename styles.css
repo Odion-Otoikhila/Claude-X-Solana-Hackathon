@@ -2,87 +2,117 @@
 /* Ireland availability map */
 .availability-map-panel{display:grid;grid-template-columns:34% 66%;min-height:390px;border:1px solid #e2e9e5;border-radius:17px;background:#f4f9f5;overflow:hidden;margin-bottom:28px}.availability-map-copy{padding:39px 28px 28px}.availability-map-copy h3{font-family:'Space Grotesk';font-size:26px;letter-spacing:-.06em;line-height:1.05;margin:14px 0 12px}.availability-map-copy>p{font-size:12px;line-height:1.6;color:#718078;margin:0;max-width:250px}.map-legend{display:grid;gap:9px;margin-top:28px;color:#738078;font-size:10px}.legend-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3eb879;margin-right:6px}.legend-dot.small{background:#d1ded5}.selected-city{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #dfeae2;border-radius:10px;margin-top:28px;padding:10px}.selected-city-dot{height:8px;width:8px;background:#4ac281;border-radius:50%;box-shadow:0 0 0 4px #4ac2811c}.selected-city strong{display:block;font-size:11px}.selected-city small{display:block;color:#829087;font-size:9px;margin-top:2px}.selected-city button{margin-left:auto;background:none;color:#4c8a68;font-size:10px;padding:3px}.ireland-map{position:relative;min-height:390px;background:radial-gradient(ellipse at center,#e7f3e9 0,#d9eddf 50%,#cbe4d5 100%);display:flex;align-items:center;justify-content:center}.ireland-map svg{width:min(84%,470px);height:auto;overflow:visible}.island-shadow{fill:#a4c4ad;opacity:.4;transform:translate(3px,6px)}.island{fill:#f8fcf7;stroke:#bad4c1;stroke-width:2}.map-lake{fill:#d4e9db}.county-line{fill:none;stroke:#dbe9de;stroke-width:1;stroke-dasharray:3 4}.map-label{font-size:9px;fill:#789082;font-family:'DM Sans',sans-serif}.map-pin{position:absolute;transform:translate(-50%,-50%);height:31px;min-width:31px;border-radius:50% 50% 50% 0;rotate:-45deg;background:var(--ink);border:3px solid #fff;color:var(--mint);font-size:9px;font-weight:700;box-shadow:0 5px 10px #10271c24;transition:.2s}.map-pin:hover,.map-pin.selected{background:#48b97b;color:#fff;scale:1.12}.pin-dublin{top:29%;left:68%}.pin-cork{top:70%;left:27%}.pin-galway{top:35%;left:42%}.pin-limerick{top:51%;left:36%}.pin-waterford{top:70%;left:60%}.pin-kilkenny{top:53%;left:57%}.map-scale{position:absolute;right:25px;bottom:20px;color:#789082;font-size:9px;display:flex;align-items:center;gap:6px}.map-scale span{display:block;width:38px;height:4px;border-left:1px solid #789082;border-right:1px solid #789082;border-top:1px solid #789082}@media(max-width:850px){.availability-map-panel{grid-template-columns:1fr}.availability-map-copy{padding:28px}.availability-map-copy>p{max-width:500px}.selected-city{max-width:360px;margin-top:20px}.ireland-map{min-height:350px}}@media(max-width:580px){.availability-map-copy h3{font-size:23px}.ireland-map{min-height:300px}.ireland-map svg{width:96%}.map-label{font-size:8px}.map-pin{min-width:27px;height:27px;font-size:8px}.map-scale{right:12px;bottom:12px}}
 
-/* First-load search focus */
+/* Cohesive first-load hero */
 .hero {
   grid-template-columns: 1fr;
-  min-height: calc(100vh - 84px);
-  padding-top: 30px;
-  padding-bottom: 72px;
-  gap: 30px;
+  gap: 34px;
+  padding-top: 62px;
+  padding-bottom: 78px;
   align-items: start;
+  text-align: center;
 }
 .hero-copy {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.hero-copy .eyebrow { margin-bottom: 0; }
+.hero-copy h1 {
+  max-width: 820px;
+  margin: 20px 0 22px;
+}
+.hero-copy .hero-lede {
+  max-width: 610px;
+  margin: 0 auto 30px;
 }
 .hero-copy .search-box {
-  order: -3;
   width: min(100%, 780px);
   min-height: 86px;
   padding: 10px;
   border-radius: 18px;
   box-shadow: 0 24px 55px #12202d17;
 }
-.hero-copy .search-field input {
-  font-size: 17px;
-}
+.hero-copy .search-field { padding-left: 18px; }
+.hero-copy .search-field input { font-size: 17px; }
 .hero-copy .primary-button {
   min-height: 64px;
   padding-inline: 28px;
   font-size: 15px;
 }
 .hero-copy .hero-proof {
-  order: -2;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 22px;
   font-size: 13px;
 }
-.hero-copy .eyebrow {
-  order: -1;
-  margin-top: 30px;
-}
-.hero-copy h1 {
-  margin-top: 12px;
-}
-.hero-copy .hero-lede {
-  margin-left: auto;
-  margin-right: auto;
-}
 .hero-art {
-  width: min(100%, 900px);
-  height: 440px;
+  width: min(100%, 690px);
+  height: 470px;
   margin: 0 auto;
-  transform: scale(.86);
-  transform-origin: top center;
+}
+.hero-card-main {
+  right: 50%;
+  transform: translateX(50%);
+}
+.orbit {
+  right: 50%;
+  transform: translateX(50%) rotate(26deg);
+}
+.orbit-two {
+  right: 50%;
+  transform: translateX(50%) rotate(-30deg);
+}
+.escrow-float { left: 18px; }
+.reputation-float { right: 18px; }
+@media (max-width: 850px) {
+  .hero { padding-top: 48px; }
+  .hero-art { width: min(100%, 620px); }
 }
 @media (max-width: 580px) {
+  .topbar { height: 72px; }
   .hero {
-    min-height: auto;
-    padding-top: 24px;
-    padding-bottom: 48px;
     gap: 24px;
+    padding-top: 24px;
+    padding-bottom: 52px;
+  }
+  .hero-copy h1 {
+    font-size: 38px;
+    line-height: 1.02;
+    letter-spacing: -.065em;
+    margin-top: 14px;
+    margin-bottom: 15px;
+  }
+  .hero-copy .hero-lede {
+    max-width: 350px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.5;
   }
   .hero-copy .search-box {
     min-height: 0;
     padding: 0;
     box-shadow: none;
   }
-  .hero-copy .search-field input {
-    font-size: 15px;
-  }
+  .hero-copy .search-field { padding-left: 14px; }
+  .hero-copy .search-field input { font-size: 15px; }
   .hero-copy .primary-button {
     min-height: 48px;
     font-size: 12px;
   }
   .hero-copy .hero-proof {
     justify-content: center;
+    margin-top: 18px;
     font-size: 11px;
   }
-  .hero-art {
-    height: 360px;
-    transform: none;
+  .hero-art { height: 360px; }
+  .hero-card-main {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: min(440px, calc(100% - 20px));
   }
+  .escrow-float { left: -8px; }
+  .reputation-float { right: -8px; }
 }
