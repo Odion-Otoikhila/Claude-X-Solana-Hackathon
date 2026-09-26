@@ -152,83 +152,12 @@ function openEscrow(item) {
   document.querySelector('[data-lock-funds]').addEventListener('click', () => {
     closeModal();
     showToast('Demo escrow state updated');
-    document.querySelector('#dashboard').scrollIntoView({behavior:'smooth'});
+    window.location.href = 'dashboard.html';
   });
 }
 function openListingForm() {
   openModal(`<div class="eyebrow">BECOME A HOST · DEMO</div><h2>List your unused space.</h2><p>Preview how a host could turn an empty garage, room, or locker into monthly income.</p><div class="modal-form"><label>SPACE NAME</label><input placeholder="e.g. Dry garage near Dublin city centre" /><label>MONTHLY PRICE (SOL)</label><input placeholder="0.55" /><label>SPACE TYPE</label><select><option>Private garage</option><option>Basement</option><option>Spare room</option><option>Warehouse</option></select><button class="modal-submit" data-submit-listing>Preview listing <span>→</span></button></div>`);
   document.querySelector('[data-submit-listing]').addEventListener('click', () => { closeModal(); showToast('Demo listing preview complete'); });
-}
-
-let demoSignedIn = false;
-
-function shortWalletAddress(address) {
-  return `${address.slice(0, 4)}…${address.slice(-4)}`;
-}
-
-function showPhantomPrompt() {
-  openModal(`<div class="wallet-flow">
-    <div class="wallet-flow-icon" aria-hidden="true">👻</div>
-    <div class="eyebrow">PHANTOM WALLET</div>
-    <h2 id="modal-title">Add Phantom to continue.</h2>
-    <p>We could not find Phantom in this browser. Install it, create or import a wallet, then return here and try again.</p>
-    <div class="wallet-safety-note"><strong>Demo safety</strong><span>Never enter a recovery phrase or private key into this site.</span></div>
-    <a class="modal-submit wallet-install-link" href="https://phantom.app/download" target="_blank" rel="noopener noreferrer">Get Phantom <span>↗</span></a>
-    <button class="wallet-retry-button" type="button" data-retry-wallet>I've installed Phantom — try again</button>
-  </div>`);
-  document.querySelector('[data-retry-wallet]').addEventListener('click', connectPhantom);
-}
-
-async function connectPhantom() {
-  const provider = window.phantom?.solana;
-  if (!provider?.isPhantom) {
-    showPhantomPrompt();
-    return;
-  }
-
-  try {
-    const response = await provider.connect();
-    const address = response.publicKey.toString();
-    closeModal();
-    document.querySelector('[data-wallet-label]').textContent = shortWalletAddress(address);
-    document.querySelector('[data-connect-wallet]').classList.add('connected');
-    showToast(`Phantom connected: ${shortWalletAddress(address)}`);
-  } catch (error) {
-    if (error?.code === 4001) {
-      showToast('Wallet connection cancelled');
-      return;
-    }
-    showToast('Could not connect to Phantom. Please try again.');
-  }
-}
-
-function openDemoLogin() {
-  openModal(`<div class="login-flow">
-    <div class="eyebrow">DEMO ACCOUNT</div>
-    <h2 id="modal-title">Sign in to connect your wallet.</h2>
-    <p>This presentation uses a prefilled demo account. No credentials are sent or stored.</p>
-    <form class="modal-form" data-demo-login autocomplete="off">
-      <label for="demo-email">EMAIL</label>
-      <input id="demo-email" name="email" type="email" value="demo@need-a-space.ie" required />
-      <label for="demo-password">PASSWORD</label>
-      <input id="demo-password" class="demo-password" name="demo-passcode" type="text" value="demo1234" aria-label="Demo password" autocomplete="off" data-lpignore="true" data-1p-ignore required />
-      <div class="demo-credentials-note"><span>✓</span> Demo credentials are filled in for you</div>
-      <button class="modal-submit" type="submit">Log in &amp; continue <span>→</span></button>
-    </form>
-  </div>`);
-  document.querySelector('[data-demo-login]').addEventListener('submit', event => {
-    event.preventDefault();
-    demoSignedIn = true;
-    connectPhantom();
-  });
-}
-
-function startWalletFlow() {
-  if (demoSignedIn) {
-    connectPhantom();
-    return;
-  }
-  openDemoLogin();
 }
 renderListings();
 initMap();
@@ -238,11 +167,9 @@ modalBackdrop.addEventListener('click', event => { if (event.target === modalBac
 document.querySelector('[data-close-modal]').addEventListener('click', closeModal);
 document.addEventListener('keydown', event => { if (event.key === 'Escape') closeModal(); });
 document.querySelectorAll('[data-open-listing]').forEach(button => button.addEventListener('click', openListingForm));
-document.querySelector('[data-connect-wallet]').addEventListener('click', startWalletFlow);
-document.querySelector('[data-open-dashboard]').addEventListener('click', event => { event.preventDefault(); document.querySelector('#dashboard').scrollIntoView({behavior:'smooth'}); });
+document.querySelector('[data-connect-wallet]').addEventListener('click', () => showToast('Wallet connection is coming in the on-chain build'));
 document.querySelector('[data-scroll-explore]').addEventListener('click', () => document.querySelector('#explore').scrollIntoView({behavior:'smooth'}));
 document.querySelector('[data-load-more]').addEventListener('click', showAllSpaces);
-document.querySelector('[data-show-escrow]').addEventListener('click', () => openEscrow(listings[0]));
 searchInput.addEventListener('input', () => {
   selectedCity = null;
   cityPanel.innerHTML = '<span class="selected-city-dot"></span><div><strong>All Ireland</strong><small>Search across 6 demo spaces</small></div><button id="show-all-spaces" type="button">Show all →</button>';
@@ -253,4 +180,5 @@ document.querySelectorAll('.filter-button').forEach(button => button.addEventLis
   document.querySelectorAll('.filter-button').forEach(item => item.classList.toggle('active', item === button));
   renderListings();
 }));
+
 
