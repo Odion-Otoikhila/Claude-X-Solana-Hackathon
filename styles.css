@@ -136,7 +136,7 @@
   background-image: url('assets/branding/solana-mark.png');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 50px auto;
+  background-size: contain;
 }
 .solana-inline-mark {
   width: 18px;
