@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7fbff" />
+    <script>try{document.documentElement.dataset.theme=localStorage.getItem('need-a-space-theme')||'light'}catch{document.documentElement.dataset.theme='light'}</script>
+    <title>Your dashboard — NeedaSpace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="theme.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="index.html" aria-label="NeedaSpace home"><span class="brand-mark">N</span><span>NeedaSpace</span></a>
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a href="index.html#explore">Explore spaces</a>
+          <a href="index.html#how-it-works">How it works</a>
+          <a class="active" href="dashboard.html" aria-current="page">Dashboard</a>
+        </nav>
+        <div class="topbar-actions"><a class="text-button" href="index.html#explore"><span class="list-button-icon" aria-hidden="true">⌕</span><span class="list-button-label">Browse spaces</span></a><button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode" aria-pressed="false" title="Switch theme"><span class="theme-icon" aria-hidden="true">☾</span></button><button class="wallet-button" data-connect-wallet><span class="wallet-dot"></span><span data-wallet-label>Connect wallet</span></button></div>
+      </header>
+
+      <main class="dashboard-page-main">
+        <section class="section-wrap dashboard-section" id="dashboard">
+          <div class="section-heading"><div><div class="eyebrow">YOUR NEEDASPACE</div><h2>Everything in one place</h2><p class="dashboard-intro">Track your current agreement, protected deposit, and reputation from one focused dashboard.</p></div><span class="live-chip"><span></span> Demo account · Simulated state</span></div>
+          <div class="dashboard-grid">
+            <div class="dashboard-main panel"><div class="panel-header"><div><p class="muted-label">SAMPLE AGREEMENT</p><h3>Dublin private garage</h3></div><span class="agreement-status">● Demo</span></div><div class="agreement-info"><div class="agreement-photo photo-dublin" role="img" aria-label="Garage interior"></div><div class="agreement-details"><p>Example monthly booking</p><strong><span class="solana-price-mark" aria-hidden="true"></span>0.55 SOL <small>monthly rent</small></strong><div class="progress-track"><span style="width: 58%"></span></div><div class="progress-labels"><span>Access confirmed</span><span>Checkout</span></div></div></div><div class="escrow-status"><div class="escrow-status-icon">⌑</div><div><p>Example security deposit</p><strong><span class="solana-price-mark" aria-hidden="true"></span>1.10 SOL <span>simulated escrow</span></strong></div><button class="tiny-button" data-show-escrow>See flow ↗</button></div></div>
+            <div class="dashboard-side panel"><p class="muted-label">DEMO TRUST SCORE</p><div class="trust-score"><strong>92</strong><span>/100</span><div class="score-ring"><div>✦</div></div></div><p class="trust-caption">Example reputation profile</p><div class="score-line"><span></span></div><div class="score-meta"><span>Completed bookings</span><strong>14</strong></div><div class="score-meta"><span>Disputes</span><strong>0</strong></div></div>
+          </div>
+          <a class="dashboard-back" href="index.html#explore">← Back to spaces</a>
+        </section>
+      </main>
+
+      <footer class="footer section-wrap"><a class="brand" href="index.html"><span class="brand-mark">N</span><span>NeedaSpace</span></a><span>Programmable trust for physical space.</span><span class="solana-footer-badge"><img class="solana-wordmark" src="assets/branding/solana-wordmark.png" alt="Solana" /> <span>Devnet demo</span></span></footer>
+    </div>
+
+    <div class="modal-backdrop" id="modal-backdrop" aria-hidden="true"><div class="modal" role="dialog" aria-modal="true"><button class="modal-close" data-close-modal aria-label="Close">×</button><div id="modal-content"></div></div></div>
+    <div class="toast" id="toast"><span class="toast-mark">✓</span><span id="toast-message">Wallet connected</span></div>
+    <script src="dashboard.js"></script>
+  </body>
+</html>
+
