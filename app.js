@@ -166,7 +166,7 @@ function renderListings() {
     });
   });
 
-  resultsLabel.textContent = `Showing ${items.length} space${items.length === 1 ? '' : 's'}${selectedCity ? ` in ${selectedCity}` : ' from the Flask API'}`;
+  resultsLabel.textContent = `Showing ${items.length} space${items.length === 1 ? '' : 's'}${selectedCity ? ` in ${selectedCity}` : ' across Ireland'}`;
   markers.forEach((marker, city) => marker.setOpacity(!selectedCity || selectedCity === city ? 1 : .45));
 }
 
@@ -318,7 +318,7 @@ function showFundedModal(chainResult) {
   openModal(`<div class="escrow-modal">
     <div class="eyebrow">BOOKING FUNDED · ${chainResult.mode.toUpperCase()}</div>
     <h2>Booking #${activeBooking.id} is funded.</h2>
-    <p>Flask status: <strong>${activeBooking.status}</strong></p>
+    <p>Booking status: <strong>${activeBooking.status}</strong></p>
     <div class="escrow-visual">
       <div class="escrow-amount">${solLabel(activeListing.price + activeListing.deposit, 4)} <small>locked in escrow</small></div>
       <p><strong>Escrow:</strong> ${activeBooking.escrow_address}</p>
@@ -330,7 +330,7 @@ function showFundedModal(chainResult) {
 
   document.querySelector('[data-go-dashboard]').addEventListener('click', () => {
     closeModal();
-    document.querySelector('#dashboard').scrollIntoView({ behavior: 'smooth' });
+    window.location.href = 'dashboard.html';
   });
 }
 
@@ -379,8 +379,9 @@ async function releaseActiveBooking() {
 
 function renderDashboard() {
   const container = document.querySelector('.dashboard-main');
+  if (!container) return;
   if (!activeBooking || !activeListing) {
-    container.innerHTML = `<div class="panel-header"><div><p class="muted-label">LIVE BOOKING</p><h3>No active booking yet</h3></div><span class="agreement-status">API connected</span></div><p class="dashboard-empty">Connect Phantom and book a listing above. This dashboard will then read/write the real Flask booking record.</p>`;
+    container.innerHTML = `<div class="panel-header"><div><p class="muted-label">LIVE BOOKING</p><h3>No active booking yet</h3></div><span class="agreement-status">Ready</span></div><p class="dashboard-empty">Connect Phantom and book a listing to start tracking it here.</p>`;
     return;
   }
 
@@ -411,7 +412,7 @@ function renderDashboard() {
       <button class="primary-button" data-release ${!ready ? 'disabled' : ''}>${completed ? 'Completed ✓' : 'Release booking'}</button>
     </div>
     ${releaseExplorer ? `<p class="explorer-row"><a href="${releaseExplorer}" target="_blank" rel="noreferrer">View payout on Solana Explorer ↗</a></p>` : ''}
-    ${config.CHAIN_MODE === 'demo' ? '<p class="demo-warning">Chain mode is DEMO: Flask integration is real, on-chain money movement is simulated.</p>' : ''}`;
+    ${config.CHAIN_MODE === 'demo' ? '<p class="demo-warning">Demo mode is active, so on-chain money movement is simulated.</p>' : ''}`;
 
   container.querySelector('[data-move-in]')?.addEventListener('click', () => patchEvidence('move_in_photo'));
   container.querySelector('[data-move-out]')?.addEventListener('click', () => patchEvidence('move_out_photo'));
@@ -421,7 +422,7 @@ function renderDashboard() {
 }
 
 function openListingForm() {
-  openModal(`<div class="eyebrow">BECOME A HOST</div><h2>List your unused space.</h2><p>This writes directly to the Flask API.</p>
+  openModal(`<div class="eyebrow">BECOME A HOST</div><h2>List your unused space.</h2><p>Add the details renters need to understand your space.</p>
     <div class="modal-form">
       <label>SPACE NAME</label><input data-list-title placeholder="e.g. Dry garage near Dublin city centre" />
       <label>DESCRIPTION</label><input data-list-description placeholder="Secure, dry, 24/7 access" />
@@ -453,7 +454,7 @@ function openListingForm() {
       listings.push(decorateListing(listing, listings.length));
       renderListings();
       closeModal();
-      showToast('Listing created in Flask');
+      showToast('Listing created');
     } catch (error) {
       button.disabled = false;
       showToast(error.message);
@@ -481,7 +482,7 @@ async function boot() {
     console.log(health.message);
     const raw = await api('/api/listings');
     listings = raw.map(decorateListing);
-    if (!listings.length) throw new Error('Flask returned zero listings. Restart backend to seed demo data.');
+    if (!listings.length) throw new Error('No listings are available yet. Restart the backend to seed demo data.');
 
     renderListings();
     initMap();
@@ -490,9 +491,9 @@ async function boot() {
     await loadExistingBooking();
     renderDashboard();
   } catch (error) {
-    grid.innerHTML = `<div class="empty-results"><strong>Backend not reachable.</strong><br>${error.message}<br><br>Run <code>python app.py</code> inside the backend folder.</div>`;
-    resultsLabel.textContent = 'Flask API offline';
-    showToast('Flask backend is not reachable');
+    grid.innerHTML = '<div class="empty-results"><strong>Spaces are temporarily unavailable.</strong><br>Please try again shortly.</div>';
+    resultsLabel.textContent = 'Listings temporarily unavailable';
+    showToast('The listing service is not reachable');
   }
 }
 
@@ -503,16 +504,8 @@ document.querySelector('[data-close-modal]').addEventListener('click', closeModa
 document.addEventListener('keydown', event => { if (event.key === 'Escape') closeModal(); });
 document.querySelectorAll('[data-open-listing]').forEach(button => button.addEventListener('click', openListingForm));
 document.querySelector('[data-connect-wallet]').addEventListener('click', connectWallet);
-document.querySelector('[data-open-dashboard]').addEventListener('click', event => { event.preventDefault(); document.querySelector('#dashboard').scrollIntoView({ behavior: 'smooth' }); });
 document.querySelector('[data-scroll-explore]').addEventListener('click', () => document.querySelector('#explore').scrollIntoView({ behavior: 'smooth' }));
 document.querySelector('[data-load-more]').addEventListener('click', showAllSpaces);
-document.querySelector('[data-show-escrow]').addEventListener('click', () => {
-  if (activeBooking) {
-    document.querySelector('#dashboard').scrollIntoView({ behavior: 'smooth' });
-  } else if (listings.length) {
-    openBooking(0);
-  }
-});
 searchInput.addEventListener('input', () => {
   selectedCity = null;
   cityPanel.innerHTML = `<span class="selected-city-dot"></span><div><strong>All Ireland</strong><small>Search API listings</small></div><button id="show-all-spaces" type="button">Show all →</button>`;
