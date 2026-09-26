@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="map.css" />
     <link rel="stylesheet" href="theme.css" />
+    <link rel="stylesheet" href="chain/chain.css" />
   </head>
   <body>
     <div class="app-shell">
@@ -72,5 +73,8 @@
     <div class="toast" id="toast"><span class="toast-mark">✓</span><span id="toast-message">Wallet connected</span></div>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="app.js"></script>
+    <!-- On-chain layer: Buffer polyfill first (Anchor needs it), then the flow. -->
+    <script type="module">import { Buffer } from "https://esm.sh/buffer@6.0.3"; window.Buffer = Buffer;</script>
+    <script type="module" src="chain/flow.js"></script>
   </body>
 </html>

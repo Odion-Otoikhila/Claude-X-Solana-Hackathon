@@ -1,0 +1,22 @@
+/* Styles for the on-chain booking panel. Reuses the escrow-* and modal-* look from styles.css. */
+.chain-rows{display:grid;grid-template-columns:1fr auto;gap:8px 16px;margin-top:14px;font-size:12px;color:#5d6b78}
+.chain-rows strong{color:var(--ink);font-weight:600;text-align:right}
+.chain-note{font-size:11px;color:#79858d;line-height:1.5}
+.chain-link{color:#3279dc;text-decoration:underline;text-underline-offset:2px}
+.chain-actions{display:grid;gap:8px;margin-top:6px}
+.chain-secondary{justify-self:center;margin-top:4px;font-size:12px;text-decoration:underline;text-underline-offset:2px}
+.chain-file{display:grid;gap:6px;font-size:10px;letter-spacing:.08em;font-weight:700;color:#81909c}
+.chain-file input{font-size:12px;letter-spacing:0;font-weight:400;color:var(--ink);border:1px dashed #c9d7e6;border-radius:8px;padding:12px;background:#f7fbff}
+.chain-check{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink)}
+.chain-photos{display:flex;gap:10px;margin-top:16px}
+.chain-photos figure{margin:0;flex:1;max-width:50%}
+.chain-photos img{width:100%;height:90px;object-fit:cover;border-radius:8px;display:block}
+.chain-photos figcaption{font-size:10px;color:#79858d;margin-top:4px}
+.chain-txs{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:6px;font-size:11px}
+.modal-submit:disabled{opacity:.55;cursor:not-allowed}
+.modal-submit:focus-visible,.chain-secondary:focus-visible,.chain-file input:focus-visible{outline:3px solid #70adf4;outline-offset:2px}
+.modal{max-height:calc(100vh - 40px);overflow-y:auto}
+
+html[data-theme="dark"] .chain-rows,html[data-theme="dark"] .chain-note,html[data-theme="dark"] .chain-photos figcaption{color:#a9bdd4}
+html[data-theme="dark"] .chain-link{color:#8bc5ff}
+html[data-theme="dark"] .chain-file input{background:#172b47;border-color:#2a405e}

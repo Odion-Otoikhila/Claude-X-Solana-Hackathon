@@ -143,8 +143,8 @@ function openBooking(index = 0) {
   const date = new Date();
   date.setDate(date.getDate() + 1);
   const moveIn = date.toISOString().slice(0,10);
-  openModal(`<div class="modal-space-preview ${item.photo}"></div><div class="eyebrow">DEMO STORAGE SPACE</div><h2>${item.title}</h2><p>${item.area}, ${item.city} · ${item.size} · ${item.access}</p><div class="modal-form"><label>MOVE-IN DATE</label><input type="date" value="${moveIn}" /><label>PAYMENT SUMMARY</label><div class="agreement-summary"><strong>€${item.price}.00 / month</strong><span>+ €${item.deposit}.00 example security deposit</span></div><button class="modal-submit" data-start-booking>Continue with USDC <span>→</span></button></div>`);
-  document.querySelector('[data-start-booking]').addEventListener('click', () => openEscrow(item));
+  openModal(`<div class="modal-space-preview ${item.photo}"></div><div class="eyebrow">DEMO STORAGE SPACE</div><h2>${item.title}</h2><p>${item.area}, ${item.city} · ${item.size} · ${item.access}</p><div class="modal-form"><label>MOVE-IN DATE</label><input type="date" value="${moveIn}" /><label>PAYMENT SUMMARY</label><div class="agreement-summary"><strong>€${item.price}.00 / month</strong><span>+ €${item.deposit}.00 example security deposit</span></div><button class="modal-submit" data-start-booking>Pay with SOL <span>→</span></button></div>`);
+  document.querySelector('[data-start-booking]').addEventListener('click', () => window.SpaceLock ? window.SpaceLock.startBooking(index) : openEscrow(item));
 }
 function openEscrow(item) {
   openModal(`<div class="escrow-modal"><div class="eyebrow">SOLANA ESCROW · DEMO</div><h2>See how your deposit is protected.</h2><p>This is a simulated escrow flow for ${item.title}. No payment or on-chain transaction will be made.</p><div class="escrow-visual"><div class="escrow-amount">€${item.deposit}.00 <small>USDC equivalent</small></div><div class="escrow-track"><span class="escrow-node">✓</span><span class="escrow-connector"></span><span class="escrow-node pending">⌑</span><span class="escrow-connector pending"></span><span class="escrow-node pending">✓</span></div><div class="escrow-labels"><span>Payment received</span><span>Access confirmed</span><span>Deposit returned</span></div></div><button class="modal-submit" data-lock-funds>Show simulated deposit <span>→</span></button></div>`);
@@ -166,11 +166,11 @@ modalBackdrop.addEventListener('click', event => { if (event.target === modalBac
 document.querySelector('[data-close-modal]').addEventListener('click', closeModal);
 document.addEventListener('keydown', event => { if (event.key === 'Escape') closeModal(); });
 document.querySelectorAll('[data-open-listing]').forEach(button => button.addEventListener('click', openListingForm));
-document.querySelector('[data-connect-wallet]').addEventListener('click', () => showToast('Wallet connection is coming in the on-chain build'));
+document.querySelector('[data-connect-wallet]').addEventListener('click', () => window.SpaceLock ? window.SpaceLock.walletClick() : showToast('Wallet is still loading, try again in a second'));
 document.querySelector('[data-open-dashboard]').addEventListener('click', event => { event.preventDefault(); document.querySelector('#dashboard').scrollIntoView({behavior:'smooth'}); });
 document.querySelector('[data-scroll-explore]').addEventListener('click', () => document.querySelector('#explore').scrollIntoView({behavior:'smooth'}));
 document.querySelector('[data-load-more]').addEventListener('click', showAllSpaces);
-document.querySelector('[data-show-escrow]').addEventListener('click', () => openEscrow(listings[0]));
+document.querySelector('[data-show-escrow]').addEventListener('click', () => window.SpaceLock?.hasBooking() ? window.SpaceLock.openBooking() : openEscrow(listings[0]));
 searchInput.addEventListener('input', () => {
   selectedCity = null;
   cityPanel.innerHTML = '<span class="selected-city-dot"></span><div><strong>All Ireland</strong><small>Search across 6 demo spaces</small></div><button id="show-all-spaces" type="button">Show all →</button>';
