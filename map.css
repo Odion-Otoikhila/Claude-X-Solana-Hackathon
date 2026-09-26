@@ -1,0 +1,24 @@
+.availability-map-panel{grid-template-columns:34% 66%}
+.availability-map-copy{position:relative;z-index:2}
+.availability-map-copy>p{max-width:270px}
+.ireland-map{height:430px;min-height:430px;background:#dcece3;display:block}
+.ireland-map.leaflet-container{font-family:'DM Sans',sans-serif}
+.mini-map.leaflet-container{height:260px;overflow:hidden;border-radius:13px;font-family:'DM Sans',sans-serif}
+.map-wheel-hint{margin-left:auto;color:#8a969d;font-size:10px}
+.storage-marker{width:36px;height:36px;border-radius:12px 12px 12px 3px;background:#0c1117;box-shadow:0 7px 16px #0c11174d;border:2px solid #fff;transform:rotate(-45deg);display:grid;place-items:center}
+.storage-marker span{transform:rotate(45deg);color:#b9f3d1;font-size:21px;line-height:1}
+.storage-marker:hover{background:#159a60}
+.leaflet-tooltip{border:0;border-radius:8px;box-shadow:0 5px 18px #0c11172b;font-size:11px;font-weight:700;color:#24352b;padding:7px 10px}
+.leaflet-control-attribution{font-size:9px!important}
+.ireland-map .leaflet-control-attribution svg{width:12px;height:8px;overflow:hidden}
+.mini-map .leaflet-control-attribution svg{width:12px;height:8px;overflow:hidden}
+.leaflet-control-attribution a{color:#286b4b}
+.leaflet-control-zoom a{font-family:'DM Sans',sans-serif!important}
+.selected-city{margin-top:31px}
+.results-label{font-size:11px;color:#78858e;margin:0 0 17px}
+.empty-results{grid-column:1/-1;padding:42px 25px;border:1px dashed #dbe4df;border-radius:12px;text-align:center;color:#718078;font-size:13px}
+.map-error{display:grid;place-items:center;height:100%;margin:0;padding:30px;color:#587060;font-size:13px;text-align:center}
+.listing-card{cursor:pointer}
+.listing-card:focus-visible{outline:3px solid #66c18d;outline-offset:2px}
+@media(max-width:850px){.availability-map-panel{grid-template-columns:1fr}.ireland-map{height:400px;min-height:400px}}
+@media(max-width:580px){.ireland-map{height:350px;min-height:350px}.mini-map.leaflet-container{height:190px}}

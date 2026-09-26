@@ -1,0 +1,76 @@
+:root{--ink:#11294a;--mint:#b6dcff;--green:#347fdb;--purple:#4c85ee;--blue:#3279dc;--blue-soft:#e7f2ff}
+body{background:#fbfdff}
+.brand-mark,.wallet-button,.primary-button,.filter-button.active,.modal-submit{background:#11294a}
+.brand-mark{color:#b6dcff}
+.wallet-dot,.eyebrow-pulse,.status-dot,.live-chip span,.selected-city-dot{background:#5aa9ff}
+.eyebrow-pulse{box-shadow:0 0 0 4px #5aa9ff22}
+.hero h1 em{color:#6b8fb7}
+.solana-glyph,.float-icon.spark-icon{color:#5288e6}
+.float-icon.spark-icon{background:#e9f1ff}
+.float-icon.lock-icon,.escrow-status-icon{background:#e5f2ff;color:#367fd0}
+.check-badge,.legend-dot,.score-line span,.progress-track span{background:#5a9fe8}
+.trust-strip,.how-section{background:#f1f7ff}
+.trust-icon,.verified,.selected-city button,.tiny-button{color:#3279dc}
+.verified,.agreement-status{background:#e9f3ff;color:#2f75c7}
+.availability-map-panel{background:#f1f7ff;border-color:#dce9f7}
+.ireland-map{background:#d7eafa}
+.selected-city{border-color:#dce8f5}
+.selected-city-dot{box-shadow:0 0 0 4px #5aa9ff22}
+.storage-marker{background:#163863;box-shadow:0 7px 16px #16386355}
+.storage-marker span{color:#b6dcff}
+.storage-marker:hover{background:#3279dc}
+.escrow-status{background:#f0f7ff}
+.escrow-node{background:#e0efff;color:#3279dc}
+.escrow-connector{background:#9ecbfa}
+.toast-mark{background:#8ec5ff}
+.cta-section{background:#10284a}
+.cta-section em{color:#acd8ff}
+.light-button{background:#b6dcff}
+.theme-toggle{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#edf5ff;color:#245c9e;border:1px solid #dbe9f9;flex:none;font-size:19px;line-height:1;transition:background .2s,color .2s,transform .2s}
+.theme-toggle:hover{background:#dcecff;transform:rotate(-12deg)}
+.theme-toggle:focus-visible{outline:3px solid #70adf4;outline-offset:2px}
+.topbar-actions{gap:14px}
+@media(max-width:580px){.topbar-actions{gap:9px}.wallet-button{padding:11px 13px}.theme-toggle{width:35px;height:35px}}
+html[data-theme="dark"]{color-scheme:dark;--ink:#eaf3ff;--muted:#a4b5cb;--soft:#0e1b2f;--line:#243a56;--mint:#92c7ff;--green:#6db1ff}
+html[data-theme="dark"] body{background:#0a1427;color:#eaf3ff}
+html[data-theme="dark"] .brand-mark,html[data-theme="dark"] .wallet-button,html[data-theme="dark"] .primary-button,html[data-theme="dark"] .filter-button.active,html[data-theme="dark"] .modal-submit{background:#438de6;color:#08182f}
+html[data-theme="dark"] .brand-mark{color:#08182f}
+html[data-theme="dark"] .nav-links,html[data-theme="dark"] .text-button,html[data-theme="dark"] .hero-lede,html[data-theme="dark"] .hero-proof,html[data-theme="dark"] .section-heading-right .filter-button,html[data-theme="dark"] .how-intro>p,html[data-theme="dark"] .step p,html[data-theme="dark"] .footer,html[data-theme="dark"] .listing-meta,html[data-theme="dark"] .agreement-details>p,html[data-theme="dark"] .progress-labels,html[data-theme="dark"] .trust-caption,html[data-theme="dark"] .score-meta,html[data-theme="dark"] .map-legend,html[data-theme="dark"] .availability-map-copy>p,html[data-theme="dark"] .results-label{color:#a6b8cf}
+html[data-theme="dark"] .hero h1 em,html[data-theme="dark"] .how-intro h2 span{color:#8bb8e8}
+html[data-theme="dark"] .hero-proof strong,html[data-theme="dark"] .score-meta strong,html[data-theme="dark"] .listing-price{color:#eaf3ff}
+html[data-theme="dark"] .hero-card,html[data-theme="dark"] .floating-card,html[data-theme="dark"] .listing-card,html[data-theme="dark"] .panel,html[data-theme="dark"] .modal,html[data-theme="dark"] .search-box,html[data-theme="dark"] .selected-city,html[data-theme="dark"] .step-icon{background:#14253e;border-color:#28405d;color:#eaf3ff}
+html[data-theme="dark"] .hero-card,html[data-theme="dark"] .floating-card{box-shadow:0 20px 42px #0006}
+html[data-theme="dark"] .search-field input,html[data-theme="dark"] .modal-form input,html[data-theme="dark"] .modal-form select{background:#14253e;color:#eaf3ff}
+html[data-theme="dark"] .search-field input::placeholder,html[data-theme="dark"] .modal-form input::placeholder{color:#8fa5bf}
+html[data-theme="dark"] .search-kbd,html[data-theme="dark"] .filter-button,html[data-theme="dark"] .outline-button,html[data-theme="dark"] .modal-form input,html[data-theme="dark"] .modal-form select{border-color:#2a405e;background:#172b47;color:#b7c9dd}
+html[data-theme="dark"] .filter-button.active{color:#08182f;background:#6db1ff;border-color:#6db1ff}
+html[data-theme="dark"] .trust-strip,html[data-theme="dark"] .how-section{background:#0f1d32;border-color:#223754}
+html[data-theme="dark"] .trust-items,html[data-theme="dark"] .eyebrow,html[data-theme="dark"] .muted-label,html[data-theme="dark"] .listing-card p,html[data-theme="dark"] .hero-space-row .small-label,html[data-theme="dark"] .floating-card p,html[data-theme="dark"] .modal p{color:#9db2c9}
+html[data-theme="dark"] .availability-map-panel{background:#13243c;border-color:#2a405b}
+html[data-theme="dark"] .selected-city{background:#1b3150;border-color:#304e6e}
+html[data-theme="dark"] .selected-city button{color:#98c8ff}
+html[data-theme="dark"] .selected-city small,html[data-theme="dark"] .map-wheel-hint{color:#a3b8d0}
+html[data-theme="dark"] .escrow-status,html[data-theme="dark"] .escrow-visual,html[data-theme="dark"] .live-chip{background:#1b3150;color:#dfeeff}
+html[data-theme="dark"] .escrow-status p,html[data-theme="dark"] .escrow-amount small,html[data-theme="dark"] .escrow-labels{color:#a9bdd4}
+html[data-theme="dark"] .score-ring:after{background:#14253e}
+html[data-theme="dark"] .score-ring{background:conic-gradient(#71b4ff 0 92%,#31445d 92% 100%)}
+html[data-theme="dark"] .score-line,html[data-theme="dark"] .progress-track{background:#2c4160}
+html[data-theme="dark"] .listing-bottom,html[data-theme="dark"] .score-meta{border-color:#2c4160}
+html[data-theme="dark"] .verified,html[data-theme="dark"] .agreement-status{background:#203e65;color:#8bc5ff}
+html[data-theme="dark"] .modal-close{background:#253c5b;color:#c6d9ec}
+html[data-theme="dark"] .theme-toggle{background:#213b5b;border-color:#385d83;color:#ffcf72}
+html[data-theme="dark"] .theme-toggle:hover{background:#2b4a70}
+html[data-theme="dark"] .cta-section{background:#071020}
+html[data-theme="dark"] .footer .brand{color:#eaf3ff}
+html[data-theme="dark"] .leaflet-tile-pane{filter:invert(.9) hue-rotate(180deg) brightness(.8) saturate(.85)}
+html[data-theme="dark"] .leaflet-control-attribution{background:#172b47d9;color:#bdd1e6}
+html[data-theme="dark"] .leaflet-control-attribution a{color:#98c8ff}
+html[data-theme="dark"] .leaflet-control-zoom a{background:#172b47;color:#d5e9ff;border-color:#365371}
+html[data-theme="dark"] .leaflet-tooltip{background:#172b47;color:#eaf3ff;border-color:#2a405d}
+.photo-dublin{--space-photo:url("assets/listings/garage-interior.webp")}
+.photo-galway{--space-photo:url("assets/listings/storage-room.jpg")}
+.photo-limerick{--space-photo:url("assets/listings/shed-exterior.jpg")}
+.photo-waterford{--space-photo:url("assets/listings/shed-interior.jpg")}
+.photo-kilkenny{--space-photo:url("assets/listings/garage-bay.jpg")}
+.listing-image[class*="photo-"],.modal-space-preview[class*="photo-"],.hero-space-photo[class*="photo-"],.agreement-photo[class*="photo-"]{background-image:var(--space-photo);background-size:cover;background-position:center}
+.listing-image[class*="photo-"]::after,.hero-space-photo[class*="photo-"]::after,.agreement-photo[class*="photo-"]::after{display:none}

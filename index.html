@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7fbff" />
+    <script>try{document.documentElement.dataset.theme=localStorage.getItem('need-a-space-theme')||'light'}catch{document.documentElement.dataset.theme='light'}</script>
+    <title>need-a-space — trusted storage, rented locally</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="map.css" />
+    <link rel="stylesheet" href="theme.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="need-a-space home"><span class="brand-mark">n</span><span>need-a-space</span></a>
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a href="#explore">Explore spaces</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#dashboard" data-open-dashboard>Dashboard</a>
+        </nav>
+        <div class="topbar-actions"><button class="text-button" data-open-listing>List your space</button><button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode" aria-pressed="false" title="Switch theme"><span class="theme-icon" aria-hidden="true">☾</span></button><button class="wallet-button" data-connect-wallet><span class="wallet-dot"></span><span data-wallet-label>Connect wallet</span></button></div>
+      </header>
+
+      <main id="top">
+        <section class="hero section-wrap">
+          <div class="hero-copy">
+            <div class="eyebrow"><span class="eyebrow-pulse"></span> Local storage, reimagined</div>
+            <h1>Space when you need it.<br /><em>Trust when it matters.</em></h1>
+            <p class="hero-lede">Find secure storage nearby, or turn your unused space into income. Every booking is protected by transparent Solana escrow.</p>
+            <div class="search-box">
+              <div class="search-field"><span class="search-icon">⌕</span><input id="search-input" type="text" placeholder="Search by city or postcode" /><span class="search-kbd">⌘ K</span></div>
+              <button class="primary-button" data-scroll-explore>Find a space <span>→</span></button>
+            </div>
+            <div class="hero-proof"><div class="avatar-stack"><span>J</span><span>A</span><span>M</span><span>+</span></div><span><strong>6</strong> demo spaces across Ireland</span><span class="proof-divider"></span><span class="solana-pill"><span class="solana-glyph">≋</span> Built on Solana</span></div>
+          </div>
+          <div class="hero-art" aria-label="Illustration of a protected storage space">
+            <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+            <div class="hero-card hero-card-main"><div class="card-topline"><span class="status-dot"></span> Dublin preview <span class="map-wheel-hint">Scroll to zoom</span></div><div class="mini-map" id="hero-map" aria-label="Interactive map preview of a Dublin storage space"></div><div class="hero-space-row"><div class="hero-space-photo photo-dublin" role="img" aria-label="Garage interior"></div><div><p class="small-label">Private garage</p><h3>Dublin · Rathmines</h3><div class="rating">★ 4.9 <span>· Demo listing</span></div></div><strong class="hero-price">€85<small>/mo</small></strong></div></div>
+            <div class="floating-card escrow-float"><div class="float-icon lock-icon">⌑</div><div><p>Escrow protected</p><strong>€170 deposit locked</strong></div><span class="check-badge">✓</span></div>
+            <div class="floating-card reputation-float"><div class="float-icon spark-icon">✦</div><div><p>Reputation updated</p><strong>+12 trust points</strong></div></div>
+          </div>
+        </section>
+
+        <section class="trust-strip"><div class="section-wrap trust-items"><span><b class="trust-icon">⌑</b> Non-custodial escrow</span><span><b class="trust-icon">◎</b> Stable USDC payments</span><span><b class="trust-icon">◈</b> Evidence-based disputes</span><span><b class="trust-icon">↗</b> Portable reputation</span></div></section>
+
+        <section class="section-wrap explore-section" id="explore">
+          <div class="section-heading"><div><div class="eyebrow">CURATED FOR YOU</div><h2>Find your next space</h2></div><div class="section-heading-right"><button class="filter-button active">All spaces</button><button class="filter-button">Indoor</button><button class="filter-button">24/7 access</button><button class="filter-button">Under €100</button></div></div>
+          <div class="availability-map-panel">
+            <div class="availability-map-copy"><div class="eyebrow">IRELAND · DEMO SPACES</div><h3>Storage, wherever life takes you.</h3><p>Explore sample spaces across Ireland. Select a map pin to browse that city's listing.</p><div class="map-legend"><span><i class="legend-dot active"></i> Demo space available</span></div><div class="selected-city" id="selected-city" aria-live="polite"><span class="selected-city-dot"></span><div><strong>All Ireland</strong><small>6 demo spaces shown</small></div><button id="show-all-spaces" type="button">Show all →</button></div></div>
+            <div class="ireland-map" id="storage-map" aria-label="Interactive map of sample storage spaces in Ireland"></div>
+          </div>
+          <p class="results-label" id="results-label" aria-live="polite">Showing 6 demo spaces across Ireland</p>
+          <div class="listing-grid" id="listing-grid"></div>
+          <div class="center-action"><button class="outline-button" data-load-more>View all spaces <span>→</span></button></div>
+        </section>
+
+        <section class="how-section" id="how-it-works"><div class="section-wrap"><div class="how-intro"><div><div class="eyebrow">A BETTER WAY TO STORE</div><h2>Simple for people.<br /><span>Powerful underneath.</span></h2></div><p>need-a-space combines the convenience of a local marketplace with the certainty of programmable money.</p></div><div class="steps"><div class="step"><span class="step-number">01</span><div class="step-icon">⌕</div><h3>Find a fit</h3><p>Browse verified spaces close to home, with transparent pricing and access rules.</p></div><div class="step-line"></div><div class="step"><span class="step-number">02</span><div class="step-icon">⌑</div><h3>Lock it safely</h3><p>Rent and deposit move into a Solana escrow account—never straight to a stranger.</p></div><div class="step-line"></div><div class="step"><span class="step-number">03</span><div class="step-icon">✓</div><h3>Store with confidence</h3><p>Check in with evidence, release rent fairly, and build reputation over time.</p></div></div></div></section>
+
+        <section class="section-wrap dashboard-section" id="dashboard"><div class="section-heading"><div><div class="eyebrow">YOUR NEED-A-SPACE</div><h2>Everything in one place</h2></div><span class="live-chip"><span></span> Demo account · Simulated state</span></div><div class="dashboard-grid"><div class="dashboard-main panel"><div class="panel-header"><div><p class="muted-label">SAMPLE AGREEMENT</p><h3>Dublin private garage</h3></div><span class="agreement-status">● Demo</span></div><div class="agreement-info"><div class="agreement-photo photo-dublin" role="img" aria-label="Garage interior"></div><div class="agreement-details"><p>Example monthly booking</p><strong>€85.00 <small>monthly rent</small></strong><div class="progress-track"><span style="width: 58%"></span></div><div class="progress-labels"><span>Access confirmed</span><span>Checkout</span></div></div></div><div class="escrow-status"><div class="escrow-status-icon">⌑</div><div><p>Example security deposit</p><strong>€170.00 USDC <span>simulated escrow</span></strong></div><button class="tiny-button" data-show-escrow>See flow ↗</button></div></div><div class="dashboard-side panel"><p class="muted-label">DEMO TRUST SCORE</p><div class="trust-score"><strong>92</strong><span>/100</span><div class="score-ring"><div>✦</div></div></div><p class="trust-caption">Example reputation profile</p><div class="score-line"><span></span></div><div class="score-meta"><span>Completed bookings</span><strong>14</strong></div><div class="score-meta"><span>Disputes</span><strong>0</strong></div></div></div></section>
+
+        <section class="cta-section"><div class="section-wrap cta-inner"><div><div class="eyebrow light">MAKE YOUR SPACE COUNT</div><h2>Your empty corner<br /><em>can earn its keep.</em></h2></div><button class="light-button" data-open-listing>List your space <span>→</span></button></div></section>
+      </main>
+      <footer class="footer section-wrap"><a class="brand" href="#top"><span class="brand-mark">n</span><span>need-a-space</span></a><span>Programmable trust for physical space.</span><span>Solana · USDC · Devnet demo</span></footer>
+    </div>
+
+    <div class="modal-backdrop" id="modal-backdrop" aria-hidden="true"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><button class="modal-close" data-close-modal>×</button><div id="modal-content"></div></div></div>
+    <div class="toast" id="toast"><span class="toast-mark">✓</span><span id="toast-message">Wallet connected</span></div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="app.js"></script>
+  </body>
+</html>
