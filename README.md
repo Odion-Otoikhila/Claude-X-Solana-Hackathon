@@ -1,6 +1,6 @@
 # need-a-space
 
-need-a-space is a presentation-first Solana escrow marketplace for local storage. People can list unused garages, basements, lockers, and warehouse space; renters pay in USDC; and deposits stay protected in programmable escrow until checkout.
+NeedaSpace is a presentation-first Solana escrow marketplace for local storage. People can list unused garages, basements, lockers, and warehouse space; renters see and pay in SOL; and deposits stay protected in programmable escrow until checkout. Internal USDC accounting and conversion remain backend concerns.
 
 ## Frontend demo
 
@@ -12,7 +12,7 @@ The interactive prototype includes:
 - Search and listing filters
 - Interactive Leaflet maps in the hero and Ireland browse section, with mouse-wheel zoom, six demo storage pins, and OpenStreetMap tiles
 - Host listing flow
-- USDC escrow checkout simulation
+- SOL escrow checkout simulation
 - Solana escrow status timeline
 - Renter agreement dashboard
 - Trust score and reputation presentation

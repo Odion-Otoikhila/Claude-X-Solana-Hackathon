@@ -68,9 +68,13 @@ html[data-theme="dark"] .leaflet-control-attribution a{color:#98c8ff}
 html[data-theme="dark"] .leaflet-control-zoom a{background:#172b47;color:#d5e9ff;border-color:#365371}
 html[data-theme="dark"] .leaflet-tooltip{background:#172b47;color:#eaf3ff;border-color:#2a405d}
 .photo-dublin{--space-photo:url("assets/listings/garage-interior.webp")}
+.photo-cork{--space-photo:url("assets/listings/basement-storage.jpg")}
 .photo-galway{--space-photo:url("assets/listings/storage-room.jpg")}
 .photo-limerick{--space-photo:url("assets/listings/shed-exterior.jpg")}
 .photo-waterford{--space-photo:url("assets/listings/shed-interior.jpg")}
 .photo-kilkenny{--space-photo:url("assets/listings/garage-bay.jpg")}
 .listing-image[class*="photo-"],.modal-space-preview[class*="photo-"],.hero-space-photo[class*="photo-"],.agreement-photo[class*="photo-"]{background-image:var(--space-photo);background-size:cover;background-position:center}
 .listing-image[class*="photo-"]::after,.hero-space-photo[class*="photo-"]::after,.agreement-photo[class*="photo-"]::after{display:none}
+html[data-theme="dark"] .text-button{background:#153d31;border-color:#285d4b;color:#b9f3d1;box-shadow:none}
+html[data-theme="dark"] .text-button:hover{background:#1b4a3b}
+
