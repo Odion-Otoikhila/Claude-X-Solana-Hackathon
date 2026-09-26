@@ -1,0 +1,421 @@
+{
+  "address": "D2viXu3qRxX8vaUQcEC92rEXxfkYES7ZyWQXzRAoU47u",
+  "metadata": {
+    "name": "spacelock_escrow",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "admin_resolve",
+      "discriminator": [
+        90,
+        215,
+        29,
+        95,
+        17,
+        61,
+        118,
+        229
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "signer": true,
+          "relations": [
+            "booking"
+          ]
+        },
+        {
+          "name": "booking",
+          "writable": true
+        },
+        {
+          "name": "renter",
+          "writable": true,
+          "relations": [
+            "booking"
+          ]
+        },
+        {
+          "name": "host",
+          "writable": true,
+          "relations": [
+            "booking"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "renter_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "cancel_booking",
+      "discriminator": [
+        139,
+        162,
+        116,
+        202,
+        78,
+        140,
+        139,
+        90
+      ],
+      "accounts": [
+        {
+          "name": "renter",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "booking"
+          ]
+        },
+        {
+          "name": "booking",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "confirm_move_in",
+      "discriminator": [
+        64,
+        41,
+        240,
+        161,
+        14,
+        179,
+        229,
+        232
+      ],
+      "accounts": [
+        {
+          "name": "renter",
+          "signer": true,
+          "relations": [
+            "booking"
+          ]
+        },
+        {
+          "name": "booking",
+          "writable": true
+        },
+        {
+          "name": "host",
+          "writable": true,
+          "relations": [
+            "booking"
+          ]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "create_booking",
+      "discriminator": [
+        19,
+        223,
+        181,
+        90,
+        124,
+        206,
+        73,
+        169
+      ],
+      "accounts": [
+        {
+          "name": "renter",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "booking",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  111,
+                  111,
+                  107,
+                  105,
+                  110,
+                  103
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "renter"
+              },
+              {
+                "kind": "arg",
+                "path": "booking_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "booking_id",
+          "type": "u64"
+        },
+        {
+          "name": "host",
+          "type": "pubkey"
+        },
+        {
+          "name": "admin",
+          "type": "pubkey"
+        },
+        {
+          "name": "rent_amount",
+          "type": "u64"
+        },
+        {
+          "name": "deposit_amount",
+          "type": "u64"
+        },
+        {
+          "name": "dispute_window_secs",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "flag_dispute",
+      "discriminator": [
+        150,
+        222,
+        78,
+        72,
+        117,
+        140,
+        2,
+        75
+      ],
+      "accounts": [
+        {
+          "name": "host",
+          "signer": true,
+          "relations": [
+            "booking"
+          ]
+        },
+        {
+          "name": "booking",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "release_deposit",
+      "discriminator": [
+        64,
+        87,
+        121,
+        32,
+        104,
+        72,
+        160,
+        185
+      ],
+      "accounts": [
+        {
+          "name": "caller",
+          "docs": [
+            "Anyone can call this once the dispute window has passed; they only pay the tx fee."
+          ],
+          "signer": true
+        },
+        {
+          "name": "booking",
+          "writable": true
+        },
+        {
+          "name": "renter",
+          "writable": true,
+          "relations": [
+            "booking"
+          ]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "start_move_out",
+      "discriminator": [
+        93,
+        9,
+        164,
+        194,
+        160,
+        97,
+        124,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "renter",
+          "signer": true,
+          "relations": [
+            "booking"
+          ]
+        },
+        {
+          "name": "booking",
+          "writable": true
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Booking",
+      "discriminator": [
+        147,
+        50,
+        61,
+        138,
+        208,
+        21,
+        254,
+        156
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "NotCreated",
+      "msg": "Booking must be in Created status"
+    },
+    {
+      "code": 6001,
+      "name": "NotMovedIn",
+      "msg": "Booking must be in MovedIn status"
+    },
+    {
+      "code": 6002,
+      "name": "NotMovedOut",
+      "msg": "Booking must be in MovedOut status"
+    },
+    {
+      "code": 6003,
+      "name": "NotDisputed",
+      "msg": "Booking must be in Disputed status"
+    },
+    {
+      "code": 6004,
+      "name": "DisputeWindowClosed",
+      "msg": "The dispute window has already closed"
+    },
+    {
+      "code": 6005,
+      "name": "DisputeWindowActive",
+      "msg": "The dispute window has not closed yet"
+    },
+    {
+      "code": 6006,
+      "name": "SplitExceedsDeposit",
+      "msg": "Renter split amount exceeds the escrowed deposit"
+    }
+  ],
+  "types": [
+    {
+      "name": "Booking",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "renter",
+            "type": "pubkey"
+          },
+          {
+            "name": "host",
+            "type": "pubkey"
+          },
+          {
+            "name": "admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "booking_id",
+            "type": "u64"
+          },
+          {
+            "name": "rent_amount",
+            "type": "u64"
+          },
+          {
+            "name": "deposit_amount",
+            "type": "u64"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "BookingStatus"
+              }
+            }
+          },
+          {
+            "name": "move_out_ts",
+            "type": "i64"
+          },
+          {
+            "name": "dispute_window_secs",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BookingStatus",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Created"
+          },
+          {
+            "name": "MovedIn"
+          },
+          {
+            "name": "MovedOut"
+          },
+          {
+            "name": "Disputed"
+          },
+          {
+            "name": "Completed"
+          }
+        ]
+      }
+    }
+  ],
+  "constants": [
+    {
+      "name": "BOOKING_SEED",
+      "type": "bytes",
+      "value": "[98, 111, 111, 107, 105, 110, 103]"
+    }
+  ]
+}
