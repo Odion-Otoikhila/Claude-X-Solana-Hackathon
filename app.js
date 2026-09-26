@@ -6,6 +6,7 @@ const listings = [
   {city:'Waterford', title:'City centre storage shed', area:'City centre', price:0.50, deposit:1.00, size:'9 m²', access:'Daytime access', rating:'4.9', photo:'photo-waterford', tag:'Central', lat:52.2593, lng:-7.1101},
   {city:'Kilkenny', title:'Kilkenny garage bay', area:'City centre', price:0.44, deposit:0.88, size:'15 m²', access:'24/7 access', rating:'4.8', photo:'photo-kilkenny', tag:'Easy access', lat:52.6541, lng:-7.2448},
 ];
+const solanaMark = '<span class="solana-price-mark" aria-hidden="true"></span>';
 const grid = document.querySelector('#listing-grid');
 const modalBackdrop = document.querySelector('#modal-backdrop');
 const modalContent = document.querySelector('#modal-content');
@@ -44,7 +45,7 @@ function renderListings() {
     const index = listings.indexOf(item);
     return `<article class="listing-card" data-listing-index="${index}" tabindex="0" role="button" aria-label="View ${item.title}">
       <div class="listing-image ${item.photo}"><span class="image-tag">${item.tag}</span></div>
-      <div class="listing-body"><p>${item.size} · ${item.access}</p><h3>${item.title}</h3><div class="listing-meta"><span>${item.area}, ${item.city}</span><span class="listing-rating">★ ${item.rating}</span></div><div class="listing-bottom"><span class="listing-price">◎ ${item.price.toFixed(2)} SOL<small>/ month</small></span><span class="verified">Demo listing</span></div></div>
+      <div class="listing-body"><p>${item.size} · ${item.access}</p><h3>${item.title}</h3><div class="listing-meta"><span>${item.area}, ${item.city}</span><span class="listing-rating">★ ${item.rating}</span></div><div class="listing-bottom"><span class="listing-price">${solanaMark}${item.price.toFixed(2)} SOL<small>/ month</small></span><span class="verified">Demo listing</span></div></div>
     </article>`;
   }).join('') : '<div class="empty-results">No demo spaces match these filters. Try another city or clear your search.</div>';
   grid.querySelectorAll('.listing-card').forEach(card => {
@@ -143,11 +144,11 @@ function openBooking(index = 0) {
   const date = new Date();
   date.setDate(date.getDate() + 1);
   const moveIn = date.toISOString().slice(0,10);
-  openModal(`<div class="modal-space-preview ${item.photo}"></div><div class="eyebrow">DEMO STORAGE SPACE</div><h2>${item.title}</h2><p>${item.area}, ${item.city} · ${item.size} · ${item.access}</p><div class="modal-form"><label>MOVE-IN DATE</label><input type="date" value="${moveIn}" /><label>PAYMENT SUMMARY</label><div class="agreement-summary"><strong>◎ ${item.price.toFixed(2)} SOL / month</strong><span>+ ◎ ${item.deposit.toFixed(2)} SOL example security deposit</span></div><button class="modal-submit" data-start-booking>Continue with SOL <span>→</span></button></div>`);
+  openModal(`<div class="modal-space-preview ${item.photo}"></div><div class="eyebrow">DEMO STORAGE SPACE</div><h2>${item.title}</h2><p>${item.area}, ${item.city} · ${item.size} · ${item.access}</p><div class="modal-form"><label>MOVE-IN DATE</label><input type="date" value="${moveIn}" /><label>PAYMENT SUMMARY</label><div class="agreement-summary"><strong>${solanaMark}${item.price.toFixed(2)} SOL / month</strong><span>+ ${item.deposit.toFixed(2)} SOL example security deposit</span></div><button class="modal-submit" data-start-booking>Continue with SOL <span>→</span></button></div>`);
   document.querySelector('[data-start-booking]').addEventListener('click', () => openEscrow(item));
 }
 function openEscrow(item) {
-  openModal(`<div class="escrow-modal"><div class="eyebrow">SOLANA ESCROW · DEMO</div><h2>See how your deposit is protected.</h2><p>This is a simulated escrow flow for ${item.title}. No payment or on-chain transaction will be made.</p><div class="escrow-visual"><div class="escrow-amount">◎ ${item.deposit.toFixed(2)} SOL <small>Solana</small></div><div class="escrow-track"><span class="escrow-node">✓</span><span class="escrow-connector"></span><span class="escrow-node pending">⌑</span><span class="escrow-connector pending"></span><span class="escrow-node pending">✓</span></div><div class="escrow-labels"><span>Payment received</span><span>Access confirmed</span><span>Deposit returned</span></div></div><button class="modal-submit" data-lock-funds>Show simulated deposit <span>→</span></button></div>`);
+  openModal(`<div class="escrow-modal"><div class="eyebrow">SOLANA ESCROW · DEMO</div><h2>See how your deposit is protected.</h2><p>This is a simulated escrow flow for ${item.title}. No payment or on-chain transaction will be made.</p><div class="escrow-visual"><div class="escrow-amount">${solanaMark}${item.deposit.toFixed(2)} SOL <small>Solana</small></div><div class="escrow-track"><span class="escrow-node">✓</span><span class="escrow-connector"></span><span class="escrow-node pending">⌑</span><span class="escrow-connector pending"></span><span class="escrow-node pending">✓</span></div><div class="escrow-labels"><span>Payment received</span><span>Access confirmed</span><span>Deposit returned</span></div></div><button class="modal-submit" data-lock-funds>Show simulated deposit <span>→</span></button></div>`);
   document.querySelector('[data-lock-funds]').addEventListener('click', () => {
     closeModal();
     showToast('Demo escrow state updated');
